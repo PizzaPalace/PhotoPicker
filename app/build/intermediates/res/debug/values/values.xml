@@ -165,6 +165,7 @@
     <string name="app_name">PhotoViewPrototype</string>
     <string name="click_me">Click Me</string>
     <string name="hello_world">Hello world!</string>
+    <string name="take_photo">Use Camera</string>
     <!-- From: file:/home/syscon/Documents/PhotoViewPrototype/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">

@@ -2,6 +2,7 @@ package com.matchify.photoviewprototype;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -19,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
 
     ImageView mImageView;
     public static final int PHOTO_CHOOSER_REQUEST_CODE = 1;
+    public static final int CAMERA_CHOOSER_REQUEST_CODE = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,14 @@ public class MainActivity extends ActionBarActivity {
         startActivityForResult(Intent.createChooser(intent,"select chooser"),PHOTO_CHOOSER_REQUEST_CODE);
     }
 
+    public void takePhoto(View view){
+
+        Intent intent = new Intent();
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,CAMERA_CHOOSER_REQUEST_CODE);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Log.v("REQUEST_CODE",Integer.toString(requestCode));
@@ -90,11 +100,20 @@ public class MainActivity extends ActionBarActivity {
                     Drawable drawable = Drawable.createFromPath(path);
                     mImageView.setImageDrawable(drawable);
 
-
                 }
 
             }
         }
+        else if(requestCode == CAMERA_CHOOSER_REQUEST_CODE){
 
+           if(resultCode == RESULT_OK){
+
+               Bundle extras = data.getExtras();
+               Bitmap imageBitmap = (Bitmap) extras.get("data");
+               mImageView.setImageBitmap(imageBitmap);
+
+           }
+
+        }
     }
 }
